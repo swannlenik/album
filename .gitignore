@@ -44,3 +44,24 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/assets/img/vienne/coin_coin_005.JPG
+src/assets/img/NYC/20180426-001.JPG
+src/assets/img/NYC/20180426-002.JPG
+src/assets/img/NYC/20180426-003.JPG
+src/assets/img/NYC/20180426-004.JPG
+src/assets/img/NYC/20180426-005.JPG
+src/assets/img/NYC/20180426-006.JPG
+src/assets/img/NYC/20180426-007.JPG
+src/assets/img/vienne/coin_coin_001.JPG
+src/assets/img/vienne/coin_coin_002.JPG
+src/assets/img/vienne/coin_coin_003.JPG
+src/assets/img/vienne/coin_coin_004.JPG
+src/environments/desktop.ini
+src/assets/desktop.ini
+src/assets/img/desktop.ini
+src/assets/img/NYC/desktop.ini
+src/assets/img/vienne/desktop.ini
+src/app/vignette/desktop.ini
+src/models/desktop.ini
+src/app/desktop.ini
+src/desktop.ini

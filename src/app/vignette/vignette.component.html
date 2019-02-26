@@ -1,0 +1,15 @@
+<div class="affichage-vignettes">
+  <h2>Album {{album.titre}}</h2>
+
+  <div class="container-vignette">
+    <input type="button" (click)="left()" value="<" class="img-navigation-btn">
+    <div  *ngFor="let photo of album.getPhotos(); let index = index;"
+          id="vignette-{{index}}"
+          [ngClass]="{'vignette': true, 'vignette-hidden': index !== getIndice()}"
+          [@openClose]="index !== getIndice() ? 'closed' : 'open'">
+      <span class="titre-photo">  Photo {{indice+1}} sur {{album.getNombrePhotos()}} - {{photo.nom}} - Taille : {{photo.largeur}}x{{photo.hauteur}}</span>
+      <img src="{{album.getDossierSourcePhotos() + photo.getNom(true)}}" class="photo" alt="{{photo.getNom()}}" title="{{photo.getNom()}} - Album {{album.titre}}" />
+    </div>
+    <input type="button" (click)="right()" value=">" class="img-navigation-btn">
+  </div>
+</div>
