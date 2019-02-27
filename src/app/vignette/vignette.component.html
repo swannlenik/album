@@ -1,7 +1,10 @@
-<div class="affichage-vignettes">
-  <h2>Album {{album.titre}}</h2>
+<div class="affichage affichage-top">
+  <h2>
+    <input type="button" (click)="quitter()" value="<--" class="quitter-btn">
+    Album {{album.titre}}
+  </h2>
 
-  <div class="container-vignette">
+  <div class="container">
     <input type="button" (click)="left()" value="<" class="img-navigation-btn">
     <div  *ngFor="let photo of album.getPhotos(); let index = index;"
           id="vignette-{{index}}"

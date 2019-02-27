@@ -1,0 +1,28 @@
+h2 {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.miniature {
+    display: none;
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    margin: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.miniature > img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.miniature.visible {
+    display: inline-block;
+}
+
+.cache {
+    display: none;
+}

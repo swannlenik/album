@@ -1,0 +1,17 @@
+<div [ngClass]="{'affichage-miniature': true, 'visible': indiceImage < 0}">
+    <h2>Album {{album.titre}} - {{bigSmall}}</h2>
+    <div class="container">
+      <div  *ngFor="let photo of album.getPhotos(); let index = index;"
+            id="vignette-{{index}}"
+            class="miniature visible"
+            (click)="zoomerSurImage(index)">
+
+        <img src="{{album.getDossierSourcePhotos() + photo.getNom(true)}}"
+              class="photo"
+              alt="{{photo.getNom()}}" 
+              title="{{photo.getNom()}} - Album {{album.titre}}" />
+      </div>
+    </div>
+  </div>
+
+<app-vignette [album]="album" [indice]="indiceImage" [ngClass]="{'cache': indiceImage < 0}" (quitterDiaporama)="onQuitterdiaporama($event)"></app-vignette>

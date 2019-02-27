@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, SimpleChanges, Output, EventEmitter, OnChanges } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Browser } from 'protractor';
-import { PhotosService } from '../photos.service';
-import { Photo } from '../../models/photos.model';
+import { PhotosService } from '../services/photos.service';
 import { Album } from 'src/models/album.model';
+import { isDefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-vignette',
   templateUrl: './vignette.component.html',
-  styleUrls: ['./vignette.component.less'],
+  styleUrls: ['../app.component.less', './vignette.component.less'],
   animations: [
     trigger('openClose', [
       state('open', style({
@@ -26,21 +26,41 @@ import { Album } from 'src/models/album.model';
     ]),
   ]
 })
-export class VignetteComponent implements OnInit {
-  private indice: number;
+
+export class VignetteComponent implements OnChanges, OnInit {
 
   public MAX_VIGNETTE = 0;
 
-  public album: Album;
+  @Input() album: Album;
+  @Input() indice: number;
+
+  @Output() quitterDiaporama = new EventEmitter<boolean>();
 
   constructor(private photosService: PhotosService) {
-    this.indice = 0;
-    this.album = new Album('New York City - avril/mai 2017', 'NYC');
-    this.album.listePhotos = this.photosService.getPhotos(this.album.dossier);
-    this.MAX_VIGNETTE = this.album.getNombrePhotos();
-   }
+    this.album = new Album(0, '', '');
+  }
 
-  ngOnInit() {  }
+  ngOnInit() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const album: SimpleChange = changes.album;
+    const indice: SimpleChange = changes.indice;
+
+    if (isDefined(indice) && indice !== null) {
+      this.indice = indice.currentValue;
+    } else {
+      this.indice = 0;
+    }
+
+    if (isDefined(album) && album !== null) {
+      this.album = album.currentValue;
+    }
+
+    if (!this.album.estVide()) {
+      this.album.listePhotos = this.photosService.getPhotos(this.album.id);
+      this.MAX_VIGNETTE = this.album.getNombrePhotos();
+    }
+   }
 
   public right(): void {
     this.indice < this.MAX_VIGNETTE - 1 ? this.indice ++ : this.indice = 0;
@@ -54,4 +74,7 @@ export class VignetteComponent implements OnInit {
     return this.indice;
   }
 
+  public quitter(): void {
+    this.quitterDiaporama.emit(true);
+  }
 }

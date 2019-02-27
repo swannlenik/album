@@ -1,0 +1,15 @@
+<div class="affichage">
+  <h2>{{albums.length}} Albums disponibles</h2>
+
+  <div class="container">
+    <div *ngFor="let album of albums; let index = index;" id="album-{{index}}" class="vignette-album" (click)="selectionnerAlbum(album)">
+      <span class="titre-album">
+        {{album.id}} - {{album.titre}}
+      </span>
+    </div>
+  </div>
+
+  <div class="photos-depuis-album" *ngIf="idAlbumSelectionne > 0">
+      <app-miniature [album]="albumSelectionne"></app-miniature>
+    </div>
+  </div>

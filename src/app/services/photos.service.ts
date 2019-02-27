@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPhoto, Photo } from '../models/photos.model';
+import { IPhoto, Photo } from '../../models/photos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,16 @@ export class PhotosService {
 
   constructor() { }
 
-  public getPhotos(nomAlbum: string): IPhoto[] {
+  public getPhotos(idAlbum: number): IPhoto[] {
     this.listePhotos = [];
 
-    if (nomAlbum === 'vienne') {
+    if (idAlbum === 1) {
       this.listePhotos.push(new Photo('coin_coin_001', 'JPG', 2736, 3648));
       this.listePhotos.push(new Photo('coin_coin_002', 'JPG', 2736, 3648));
       this.listePhotos.push(new Photo('coin_coin_003', 'JPG', 3648, 2736));
       this.listePhotos.push(new Photo('coin_coin_004', 'JPG', 3648, 2736));
       this.listePhotos.push(new Photo('coin_coin_005', 'JPG', 3648, 2736));
-    } else if (nomAlbum === 'NYC') {
+    } else if (idAlbum === 2) {
       this.listePhotos.push(new Photo('20180426-001', 'JPG', 2736, 3648));
       this.listePhotos.push(new Photo('20180426-002', 'JPG', 2736, 3648));
       this.listePhotos.push(new Photo('20180426-003', 'JPG', 2736, 3648));
