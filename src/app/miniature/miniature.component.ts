@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, SimpleChanges, OnChanges } from '@angular/core';
 import { Album } from '../../models/album.model';
 import { PhotosService } from '../services/photos.service';
 import { isDefined } from '@angular/compiler/src/util';
@@ -9,7 +9,7 @@ import { isDefined } from '@angular/compiler/src/util';
   styleUrls: ['../app.component.less', './miniature.component.less'],
 })
 
-export class MiniatureComponent implements OnInit {
+export class MiniatureComponent implements OnInit, OnChanges {
   public MAX_VIGNETTE = 0;
   public indiceImage = -1;
 
