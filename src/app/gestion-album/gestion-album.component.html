@@ -1,0 +1,45 @@
+<div class="affichage">
+  <h2>{{listeAlbums.length}} Albums disponibles</h2>
+
+  <div *ngFor="let album of listeAlbums; let index = index;" class="vignette-album" (click)="selectionnerAlbum(index)">
+    <span class="titre-album">
+      {{album.id}} - {{album.titre}}
+    </span>
+  </div>
+
+  <form [formGroup]="formGroupAlbum" (ngSubmit)="enregistrerAlbum()" *ngIf="albumSelectionne">
+    <div>
+      <label>
+        ID:
+      </label>
+      <div>
+          {{idAlbum.value}}
+      </div>
+      <input type="hidden" [formControl]="idAlbum">
+    </div>
+
+    <div>
+      <label>
+        Titre: 
+      </label>
+      <input type="text" [formControl]="titreAlbum">
+      <div *ngIf="titreAlbum.errors" class="alert">
+        {{messageErreurTitre()}}
+      </div>
+    </div>
+
+    <div>
+      <label>
+        Dossier: 
+      </label>
+      <input type="text" [formControl]="dossierAlbum">
+      <div *ngIf="dossierAlbum.errors" class="alert">
+          {{messageErreurDossier()}}
+      </div>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="!formGroupAlbum.valid">Enregistrer</button>
+    </div>
+  </form>
+</div>

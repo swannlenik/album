@@ -5,7 +5,7 @@ import { Album } from '../../models/album.model';
 @Component({
   selector: 'app-album',
   templateUrl: './album.component.html',
-  styleUrls: ['../app.component.less', './album.component.less']
+  styleUrls: ['../app.component.less', './album.component.less'],
 })
 export class AlbumComponent implements OnInit {
 
