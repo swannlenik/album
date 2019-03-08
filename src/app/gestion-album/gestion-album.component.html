@@ -1,45 +1,71 @@
-<div class="affichage">
-  <h2>{{listeAlbums.length}} Albums disponibles</h2>
+<div class="row">
+  <h2 class="col-md-12 col-lg-12 text-center">{{listeAlbums.length}} Albums disponibles</h2>
 
-  <div *ngFor="let album of listeAlbums; let index = index;" class="vignette-album" (click)="selectionnerAlbum(index)">
-    <span class="titre-album">
-      {{album.id}} - {{album.titre}}
-    </span>
+  <div class="col-md-12 col-lg-12">
+    <div class="row">
+      <div *ngFor="let album of listeAlbums; let index = index;" id="album-{{index}}" class="col-md-4 col-lg-3 ml-1 border vignette-album" (click)="selectionnerAlbum(index)">
+        <span class="badge badge-primary" *ngIf="index > 0">
+          {{album.id}}
+        </span>
+        {{album.titre}}
+      </div>      
+    </div>
   </div>
-
-  <form [formGroup]="formGroupAlbum" (ngSubmit)="enregistrerAlbum()" *ngIf="albumSelectionne">
-    <div>
-      <label>
-        ID:
-      </label>
-      <div>
-          {{idAlbum.value}}
-      </div>
-      <input type="hidden" [formControl]="idAlbum">
-    </div>
-
-    <div>
-      <label>
-        Titre: 
-      </label>
-      <input type="text" [formControl]="titreAlbum">
-      <div *ngIf="titreAlbum.errors" class="alert">
-        {{messageErreurTitre()}}
+</div>
+ 
+  <form [formGroup]="formGroupAlbum" (ngSubmit)="enregistrerAlbum()" *ngIf="albumSelectionne" class="form">
+    <div class="form-group row">
+      <label for="idAlbum" class="col-md-4 col-lg-2 col-form-label">ID</label>
+      <div class="col-md-8 col-lg-10">
+        <input type="text" id="idAlbum" formControlName="idAlbum" class="form-control-plaintext" readonly>
       </div>
     </div>
 
-    <div>
-      <label>
-        Dossier: 
-      </label>
-      <input type="text" [formControl]="dossierAlbum">
-      <div *ngIf="dossierAlbum.errors" class="alert">
-          {{messageErreurDossier()}}
+    <div class="form-group row">
+      <label for="titreAlbum" class="col-md-4 col-lg-2 col-form-label">Titre</label>
+      <div class="col-md-8 col-lg-10">
+        <input type="text" id="titreAlbum" formControlName="titreAlbum" class="form-control">
+        <div *ngIf="titreAlbum.errors" class="alert alert-danger">
+          {{messageErreurTitre()}}
+        </div>
       </div>
     </div>
 
-    <div>
-      <button type="submit" [disabled]="!formGroupAlbum.valid">Enregistrer</button>
+    <div class="form-group row">
+      <label for="dossierAlbum" class="col-md-4 col-lg-2 col-form-label">Dossier</label>
+      <div class="col-md-8 col-lg-10">
+        <input type="text" id="dossierAlbum" formControlName="dossierAlbum" class="form-control">
+        <div *ngIf="dossierAlbum.errors" class="alert alert-danger">
+            {{messageErreurDossier()}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="commentsAlbum" class="col-md-4 col-lg-2 col-form-label">Description</label>
+      <div class="col-md-8 col-lg-10">
+        <textarea id="commentsAlbum" formControlName="commentsAlbum" class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-check offset-md-4 offset-lg-2">
+      <input type="checkbox" id="activeAlbum" formControlName="activeAlbum" class="form-check-input" />
+      <label for="activeAlbum" class="form-check-label">Album actif</label>
+    </div>
+  
+    <div class="form-check offset-md-4 offset-lg-2">
+        <input type="checkbox" id="visibleAlbum" formControlName="visibleAlbum" class="form-check-input" />
+        <label for="visibleAlbum" class="form-check-label">Album visible</label>
+      </div>
+    
+      <div class="form-group row">
+      <div class="col-md-4 col-lg-4 offset-md-4 offset-lg-4 text-center">
+        <button type="submit" [disabled]="!formGroupAlbum.valid" class="btn btn-success col-md-6 col-lg-6">Enregistrer</button>
+        <button type="button" [disabled]="!idAlbum.value > 0" class="btn btn-danger col-md-6 col-lg-6" (click)="supprimerAlbum(idAlbum)">Supprimer</button>
+        </div>
+    </div>
+
+    <div class="alert alert-success" *ngIf="afficherMessageService">
+      {{messageService}}
     </div>
   </form>
-</div>

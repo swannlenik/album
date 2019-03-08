@@ -1,17 +1,34 @@
-<div [ngClass]="{'affichage-miniature': true, 'visible': indiceImage < 0}">
-    <h2>Album {{album.titre}} - {{bigSmall}}</h2>
-    <div class="container">
-      <div  *ngFor="let photo of album.getPhotos(); let index = index;"
-            id="vignette-{{index}}"
-            class="miniature visible"
-            (click)="zoomerSurImage(index)">
+<div [ngClass]="{'visible': indiceImage < 0, 'row': true}">
+  <h2 class="col-md-12 col-lg-12">Album {{album.titre}}</h2>
+  <div class="col-md-12 col-lg-12">{{album.comments}}</div>
+</div>
 
-        <img src="{{album.getDossierSourcePhotos() + photo.getNom(true)}}"
-              class="photo"
-              alt="{{photo.getNom()}}" 
-              title="{{photo.getNom()}} - Album {{album.titre}}" />
-      </div>
-    </div>
+<div class="row">
+  <div  *ngFor="let photo of album.getPhotos(); let index = index;"
+        id="vignette-{{index}}"
+        [ngClass]="{'miniature': true, 'visible': indiceImage < 0}"
+        (click)="zoomerSurImage(index)">
+
+    <img src="{{album.getDossierSourcePhotos() + photo.nom + '.' + photo.extension}}"
+          class="photo"
+          alt="{{photo.nom}}.{{photo.extension}} - {{photo.titre}}" 
+          title="{{photo.titre}} - Album {{album.titre}}" />
   </div>
+</div>
+
+<div class="row" *ngIf="afficherBlocInformations">
+  <div (click)="modifierAffichageInformations()" class="col-md-1 col-lg-1">+/-</div>
+  <h6 class="col-md-11 col-lg-11">
+    Informations de l'album
+  </h6>
+  <div class="col-md-12 col-lg-12">
+    <ul class="list-group list-group-flush" *ngIf="afficherInformations">
+        <li class="list-group-item">Nom : {{album.titre}}</li>
+        <li class="list-group-item">Dossier : {{album.dossier}}</li>
+        <li class="list-group-item">Créée le : {{album.dateCreation}}</li>
+      <li class="list-group-item">Modifiée le : {{album.dateModification}}</li>
+    </ul>
+  </div>
+</div>
 
 <app-vignette [album]="album" [indice]="indiceImage" [ngClass]="{'cache': indiceImage < 0}" (quitterDiaporama)="onQuitterdiaporama($event)"></app-vignette>

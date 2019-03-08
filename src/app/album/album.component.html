@@ -1,15 +1,18 @@
-<div class="affichage">
-  <h2>{{albums.length}} Albums disponibles</h2>
+<div class="row">
+  <h2 class="col-md-12 col-lg-12 text-center">{{albums.length}} Albums disponibles</h2>
 
-  <div class="container">
-    <div *ngFor="let album of albums; let index = index;" id="album-{{index}}" class="vignette-album" (click)="selectionnerAlbum(album)">
-      <span class="titre-album">
-        {{album.id}} - {{album.titre}}
-      </span>
+  <div class="col-md-12 col-lg-12">
+    <div class="row">
+      <div *ngFor="let album of albums; let index = index;" id="album-{{index}}" class="col-md-4 col-lg-3 ml-1 border" (click)="selectionnerAlbum(album)">
+        <span class="badge badge-primary">
+          {{album.id}}
+        </span>
+        {{album.titre}}
+      </div>      
     </div>
   </div>
 
   <div class="photos-depuis-album" *ngIf="idAlbumSelectionne > 0">
-      <app-miniature [album]="albumSelectionne"></app-miniature>
-    </div>
+    <app-miniature [album]="albumSelectionne"></app-miniature>
   </div>
+</div>

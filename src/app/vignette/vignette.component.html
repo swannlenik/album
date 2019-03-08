@@ -1,18 +1,39 @@
-<div class="affichage affichage-top">
-  <h2>
-    <input type="button" (click)="quitter()" value="<--" class="quitter-btn">
-    Album {{album.titre}}
-  </h2>
-
-  <div class="container">
-    <input type="button" (click)="left()" value="<" class="img-navigation-btn">
-    <div  *ngFor="let photo of album.getPhotos(); let index = index;"
-          id="vignette-{{index}}"
-          [ngClass]="{'vignette': true, 'vignette-hidden': index !== getIndice()}"
-          [@openClose]="index !== getIndice() ? 'closed' : 'open'">
-      <span class="titre-photo">  Photo {{indice+1}} sur {{album.getNombrePhotos()}} - {{photo.nom}} - Taille : {{photo.largeur}}x{{photo.hauteur}}</span>
-      <img src="{{album.getDossierSourcePhotos() + photo.getNom(true)}}" class="photo" alt="{{photo.getNom()}}" title="{{photo.getNom()}} - Album {{album.titre}}" />
+<div class="row h-auto">
+  <div class="col-md-12 col-lg-12 text-center">
+    <input type="button" (click)="quitter()" value="Cacher le diaporama" class="btn btn-success">
+  </div>
+  <div class="col-md-12 col-lg-12">
+    <div class="row">
+      <div class="col-md-3 col-lg-3">
+        <input type="button" (click)="left()" value="<<" class="btn btn-secondary h-100">
+      </div>
+      <div *ngFor="let photo of album.getPhotos(); let index = index;"
+            id="vignette-{{index}}"
+            [ngClass]="{'vignette-hidden': index !== getIndice(), 'col-md-6': true, 'col-lg-6': true, 'text-center': true}"
+            [@openClose]="index !== getIndice() ? 'closed' : 'open'">
+        <p class="titre-photo">Photo {{indice+1}} sur {{album.getNombrePhotos()}} - {{photo.titre}}</p>
+        <p>{{photo.description}}</p>
+        <img src="{{album.getDossierSourcePhotos() + photo.nom + '.' + photo.extension}}" class="img-fluid" alt="{{photo.nom}}" title="{{photo.nom}} - Album {{album.titre}}" />
+        <div class="row">
+          <h6 class="col-md-11 col-lg-11">
+            Informations de la photo
+          </h6>
+          <div (click)="modifierAffichageInformations()" class="col-md-1 col-lg-1">
+            +/-
+          </div>
+          <div class="col-md-12 col-lg-12">
+            <ul class="list-group list-group-flush" *ngIf="afficherInformations">
+              <li class="list-group-item">Taille : {{photo.largeur}}x{{photo.hauteur}}px</li>
+              <li class="list-group-item">Nom : {{photo.nom}}.{{photo.extension}}</li>
+              <li class="list-group-item">Créée le : {{photo.dateCreation}}</li>
+              <li class="list-group-item">Modifiée le : {{photo.dateModification}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3 text-right">
+        <input type="button" (click)="right()" value=">>" class="btn btn-secondary h-100">
+      </div>
     </div>
-    <input type="button" (click)="right()" value=">" class="img-navigation-btn">
   </div>
 </div>
